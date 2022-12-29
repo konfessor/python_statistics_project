@@ -4,10 +4,9 @@ from report import Report
 from vacancies_in_table import create_table_statistics
 
 
-
 print("Выберите что вы хотите получить(Вакансии/Статистика):", end="")
-statistic_type = input()
-if (statistic_type == "Статистика"):
+statistics_type = input()
+if (statistics_type == "Статистика"):
     print("Введите название файла: ", end="")
     file_name = input()
     print("Введите название профессии: ", end="")
@@ -38,7 +37,7 @@ if (statistic_type == "Статистика"):
         report.generate_excel()
         report.generate_image()
         report.generate_pdf()
-elif (statistic_type == "Вакансии"):
+elif (statistics_type == "Вакансии"):
     create_table_statistics()
 else:
     print("Ввод некорректен")
