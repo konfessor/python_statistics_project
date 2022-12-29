@@ -3,6 +3,7 @@ from input_conect import InputConect
 from report import Report
 from vacancies_in_table import create_table_statistics
 
+
 print("Выберите что вы хотите получить(Вакансии/Статистика):", end="")
 statistic_type = input()
 if (statistic_type == "Статистика"):
