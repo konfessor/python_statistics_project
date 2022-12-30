@@ -1,5 +1,20 @@
 class Vacancy:
+    """Класс для представления вакансии
+
+    Attributes:
+        __name (str): название вакансии
+        __salary_from (float): нижняя граница вилки оклада
+        __salary_to (float): верхняя граница вилки оклада
+        __salary_currency (str): валюта, в которой представлены границы вилки оклада
+        __area_name (str): город, в котором есть данная вакансия
+        __published_at (int): дата публикации вакансии
+    """
     def __init__(self, item: dict):
+        """Инициализирует объект Vacancy
+
+        Args:
+            item (dict): словарь с данными о вакансии
+        """
         self.__name = item["name"]
         self.__salary_from = float(item["salary_from"])
         self.__salary_to = float(item["salary_to"])

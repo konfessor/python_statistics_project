@@ -7,8 +7,33 @@ from jinja2 import Environment, FileSystemLoader, Template
 import pdfkit
 
 class Report:
+    """Класс для создания файлов со статистикой о вакансиях
+
+    Attributes:
+        __salary_by_year (dict): словарь с зарплатами по годам
+        __vacancies_by_year (dict): словарь с вакансиями по годам
+        __salary_by_year_for_profession (dict): словарь с зарплатами по годам для выбранной профессии
+        __vacancies_by_year_for_profession (dict): словарь с вакансиями по годам для выбранной профессии
+        __salary_by_city (dict): словарь с зарплатами по городам
+        __vacancies_by_city (dict): словарь с вакансиями по городам
+        __profession_name (str): название профессии, для которой нужно вывести статистику
+        __table1 (list): таблица со статистикой по годам
+        __table2 (list): таблица со статистокой о зарплатах по городам
+        __table3 (list): таблица со статистикой о вакансия по городам
+    """
     def __init__(self, salary_by_year: dict, vacancies_by_year: dict, salary_by_year_for_profession: dict,
                  vacancies_by_year_for_profession: dict, salary_by_city: dict, vacancies_by_city: dict, profession_name: str):
+        """Инициализация объекта Report
+
+        Args:
+            salary_by_year (dict): словарь с зарплатами по годам
+            vacancies_by_year (dict): словарь с вакансиями по годам
+            salary_by_year_for_profession (dict): словарь с зарплатами по годам для выбранной профессии
+            vacancies_by_year_for_profession (dict): словарь с вакансиями по годам для выбранной профессии
+            salary_by_city (dict): словарь с зарплатами по городам
+            vacancies_by_city (dict): словарь с вакансиями по городам
+            profession_name (str): название профессии, для которой нужно вывести статистику
+        """
         self.__salary_by_year = salary_by_year
         self.__vacancies_by_year = vacancies_by_year
         self.__salary_by_year_for_profession = salary_by_year_for_profession
@@ -45,6 +70,14 @@ class Report:
         self.__table3 = table3
 
     def generate_excel(self):
+        """Генерирует excel-таблицу на основе данных
+        В таблице 2 листа:
+        -на первом листе статистика по годам
+        -на втором листе статистика по городам
+
+        Returns:
+            None
+        """
         book = openpyxl.Workbook()
         book.remove(book["Sheet"])
         book.create_sheet("Статистика по годам")
@@ -130,6 +163,15 @@ class Report:
             self.__table3.append(row2)
 
     def generate_image(self):
+        """Генерирует png-файл со статистикой в виде 4-х графиков
+        -1-й график: гистограмма со статистикой о зарплатах по годам
+        -2-й график: гистограмма со статистикой о вакансиях по годам
+        -3-й график: гистограмма со статистикой о зарплатах по городам
+        -4-й график: круговая диаграмма со статистикой о вакансиях по городам
+
+        Returns:
+            None
+        """
         figure, ax = plt.subplots(2, 2)
 
         width = 0.35
@@ -188,6 +230,11 @@ class Report:
         plt.savefig("graph.png")
 
     def generate_pdf(self):
+        """Генерирует pdf-файл со статистикой в виде графиков и таблиц
+
+        Returns:
+            None
+        """
         env = Environment(loader=FileSystemLoader("."))
         template = env.get_template("pdf_template.html")
 

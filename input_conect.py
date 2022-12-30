@@ -1,7 +1,21 @@
 from math import floor
 
 class InputConect:
+    """Класс для преобразования данных для статистики
+
+    Attributes:
+        __data (list): входной набор данных
+        __profession_name (str): название профессии, для которой нудно отобрать данные для статистики
+        __vacancies_by_city (dict): словарь со статистикой количества вакансий по городам
+        __vacancies_amount (int): общее количество вакансий
+    """
     def __init__(self, data: list, profession_name: str):
+        """Инициализирует объект InputConect
+
+        Args:
+            data (list): входной набор данных
+            profession_name (str): название профессии, для которой нудно отобрать данные для статистики
+        """
         self.__data = data
         self.__profession_name = profession_name
         self.__vacancies_by_city = {}
@@ -24,6 +38,11 @@ class InputConect:
         self.__profession_name = profession_name
 
     def get_salary_by_year(self):
+        """Обрабатывает данные, создаёт словарь с зарплатами по годам
+
+        Returns:
+            dict: словарь с зарплатами по годам
+        """
         salary_by_year = {}
         salary_amount = {}
         for vacancy in self.data:
@@ -38,6 +57,11 @@ class InputConect:
         return dict(sorted(salary_by_year.items(), key=lambda item: item[0]))
 
     def get_vacancies_by_year(self):
+        """Обрабатывает данные, создаёт словарь с вакансиями по годам
+
+        Returns:
+            dict: словарь с вакансиями по годам
+        """
         vacancies_by_year = {}
         for vacancy in self.data:
             if (vacancy.published_at not in vacancies_by_year.keys()):
@@ -52,6 +76,11 @@ class InputConect:
         return dict(sorted(vacancies_by_year.items(), key=lambda item: item[0]))
 
     def get_salary_by_year_for_profession(self):
+        """Обрабатывает данные, создаёт словарь с зарплатами по годам для выбранной профессии
+
+        Returns:
+            dict: словарь с зарплатами по годам для выбранной профессии
+        """
         salary_by_year_for_profession = {}
         salary_amount = {}
         for vacancy in self.data:
@@ -69,6 +98,11 @@ class InputConect:
         return dict(sorted(salary_by_year_for_profession.items(), key=lambda item: item[0]))
 
     def get_vacancies_by_year_for_profession(self):
+        """Обрабатывает данные, создаёт словарь с вакансиями по годам для выбранной профессии
+
+        Returns:
+            dict: словарь с вакансиями по годам для выбранной профессии
+        """
         vacancy_by_year_for_profession = {}
         for vacancy in self.data:
             if (self.profession_name in vacancy.name):
@@ -81,6 +115,11 @@ class InputConect:
         return dict(sorted(vacancy_by_year_for_profession.items(), key=lambda item: item[0]))
 
     def get_salary_by_city(self):
+        """Обрабатывает данные, создаёт словарь с зарплатами по городам
+
+        Returns:
+            dict: словарь с зарплатами по городам
+        """
         salary_by_city = {}
         salary_amount = {}
         for vacancy in self.data:
@@ -97,6 +136,11 @@ class InputConect:
         return dict(zip(list(salary_by_city.keys())[:10], list(salary_by_city.values())[:10]))
 
     def get_vacancies_by_city(self):
+        """Обрабатывает данные, создаёт словарь с вакансиями по городам
+
+        Returns:
+            dict: словарь с вакансиями по городам
+        """
         vacancies_by_city = {}
         for city in self.__vacancies_by_city.keys():
             if (self.__vacancies_by_city[city] >= floor(self.__vacancies_amount / 100)):

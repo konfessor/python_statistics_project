@@ -3,7 +3,19 @@ from vacancy import Vacancy
 
 
 class DataSet:
+    """Класс для выгрузки и начального форматирования данных
+
+    Attributes:
+        __file_name (str): название csv-файла с данными
+        __data (list): список словарей с информацией о вакансиях
+        __vacancies_objects (list): список вакансий
+    """
     def __init__(self, file_name: str):
+        """Инициализирует объект DataSet, считывает данные из csv-файла
+
+        Args:
+            file_name (str): название csv-файла с данными
+        """
         self.__file_name = file_name
         self.__data = self.universal_csv_parser()
         self.__vacancies_objects = [Vacancy(item) for item in self.data]
@@ -33,6 +45,11 @@ class DataSet:
         self.__vacancies_objects = vacancies_objects
 
     def universal_csv_parser(self) -> list:
+        """Считывает данные из csv-файла и записывает их в список data
+
+        Returns:
+            list: список словарей с информацией о вакансиях
+        """
         with open(self.file_name, "r", encoding="utf-8-sig") as file:
             reader = csv.reader(file)
             header = []
